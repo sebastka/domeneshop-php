@@ -74,7 +74,7 @@ class Records
             $params
         )['id'];
 
-        $record->set('id', $id);
+        $record->setID($id);
     }
 
     /*

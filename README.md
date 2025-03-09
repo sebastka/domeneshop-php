@@ -34,6 +34,22 @@ $allRecords = $domain->records->get();
 foreach ($allRecords as $record)
     print_r($record->toArray());
 
+// Add a new record
+$new_record = new \Sebastka\Domeneshop\Record(
+    NULL,
+    '@',
+    3600,
+    'MX',
+    'mx.domain.tdl'
+    [ 'priority' => 10 ]
+);
+$domain->records->add($new_record);
+
+// Update record
+$new_record->set('data', 'mx.domain.tld');
+$new_record->set('priority', 20);
+$domain->records->update($new_record);
+
 ?>
 ```
 
