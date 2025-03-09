@@ -1,0 +1,29 @@
+{
+    "name": "sebastka/domeneshop-php",
+    "description": "PHP library for working with the Domeneshop API",
+    "version": "1.0.0",
+    "type": "library",
+    "keywords": ["domeneshop", "api", "php"],
+    "homepage": "https://github.com/sebastka/domeneshop-php",
+    "require": {
+        "php": ">=8.2.0",
+        "ext-curl": "*"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Sebastka\\Domeneshop\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Sebastian Karlsen",
+            "email": "sebastian@karlsen.fr"
+        },
+        {
+            "name": "Domeneshop AS",
+            "homepage": "https://domene.shop"
+        }
+    ],
+    "minimum-stability": "stable"
+}
