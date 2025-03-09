@@ -3,12 +3,8 @@ namespace Sebastka\Domeneshop;
 
 class Client
 {
-    const string DEFAULT_API_BASE = 'https://api.domeneshop.no/v0';
-    const string DEFAULT_USER_AGENT = 'sebastka/domeneshop';
-
-    private \CurlHandle $curl;
-    public Domains $domains;
-
+    public static string $DEFAULT_API_BASE = 'https://api.domeneshop.no/v0';
+    public static string $DEFAULT_USER_AGENT = 'sebastka/domeneshop';
     public static array $recordTypes = [
         'A',
         'AAAA',
@@ -39,6 +35,9 @@ class Client
         'TLSA' => ['usage', 'selector', 'dtype'],
         'TXT' => []
     ];
+
+    private \CurlHandle $curl;
+    public Domains $domains;
 
     /**
      * Constructor
@@ -73,13 +72,13 @@ class Client
         curl_setopt($this->curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
         curl_setopt($this->curl, CURLOPT_USERPWD, $token . ':' . $secret);
 
-        curl_setopt($this->curl, CURLOPT_USERAGENT, self::DEFAULT_USER_AGENT);
+        curl_setopt($this->curl, CURLOPT_USERAGENT, self::$DEFAULT_USER_AGENT);
 
         // Default options
         curl_setopt($this->curl, CURLOPT_HTTPHEADER, [
             'Content-Type: application/json',
             'Accept: application/json',
-            'User-Agent: ' . self::DEFAULT_USER_AGENT
+            'User-Agent: ' . self::$DEFAULT_USER_AGENT
         ]);
     }
 
@@ -92,7 +91,7 @@ class Client
      */
     public function request(string $method, string $path, array $data = []): ?array
     {
-        curl_setopt($this->curl, CURLOPT_URL, self::DEFAULT_API_BASE . $path);
+        curl_setopt($this->curl, CURLOPT_URL, self::$DEFAULT_API_BASE . $path);
         curl_setopt($this->curl, CURLOPT_CUSTOMREQUEST, $method);
 
         switch ($method) {
@@ -104,7 +103,6 @@ class Client
                 curl_setopt($this->curl, CURLOPT_POSTFIELDS, json_encode($data));
                 break;
             case 'PUT':
-                
                 curl_setopt($this->curl, CURLOPT_POSTFIELDS, json_encode($data));
                 break;
         }
