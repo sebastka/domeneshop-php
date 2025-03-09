@@ -14,7 +14,7 @@ See the [Domeneshop API documentation](https://api.domeneshop.no/docs/) for more
 
 ## Examples
 
-Listing DNS records for the first domain in your accout:
+Operations on the first domain in your accout:
 
 ```php
 <?php
@@ -23,9 +23,15 @@ require_once 'vendor/autoload.php';
 
 $ds = new \Sebastka\Domeneshop\Client('YOUR_API_TOKEN', 'YOUR_API_SECRET_KEY');
 $domain = $ds->domains->get()[0];
-$records = $domain->records->get();
 
-foreach ($records as $record)
+// Delete all _acme-challenge records
+$recordsToDelete = $domain->records->get(['type' => 'TXT', 'host' => '_acme-challenge']);
+foreach ($recordsToDelete as $record)
+    $domain->records->delete($record);
+
+// Show all remaining records
+$allRecords = $domain->records->get();
+foreach ($allRecords as $record)
     print_r($record->toArray());
 
 ?>
@@ -34,7 +40,7 @@ foreach ($records as $record)
 ## To do
 
 Implement:
-- DNS: Add, Update, Delete
 - DDNS: *
 - HTTPS Forwards: *
 - Invoices: *
+- Tests

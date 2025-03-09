@@ -1,7 +1,7 @@
 {
     "name": "sebastka/domeneshop-php",
     "description": "PHP library for working with the Domeneshop API",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "type": "library",
     "keywords": ["domeneshop", "api", "php"],
     "homepage": "https://github.com/sebastka/domeneshop-php",

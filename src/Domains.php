@@ -13,13 +13,17 @@ class Domains
     private Client $client;
     private array $domains;
 
+    /*
+     * Constructor
+     * @param Client $client
+     */
     public function __construct(Client &$client)
     {
         $this->client = $client;
     }
 
     /*
-     * Get domains
+     * Fetches all domains and returns them, optionally filtered
      * @param array $filter (optional) Filter domains
      * @return array
      */
@@ -52,12 +56,12 @@ class Domains
     }
 
     /*
-     * Get all domains
-     * @return array
+     * Fetches all domains and saves them in $this->domains
+     * @return void
      */
     private function getDomains(): void
     {
-        $response = $this->client->get('/domains');
+        $response = $this->client->request('GET', '/domains');
 
         $this->domains = [];
         foreach ($response as $domain) {

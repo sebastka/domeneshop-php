@@ -18,6 +18,23 @@ class Domain
     private bool $service_webhotel;
     public Records $records;
 
+    /**
+     * Constructor
+     * @param Client $client
+     * @param int $id
+     * @param string $domain
+     * @param \DateTime $expiry_date
+     * @param \DateTime|null $registered_date
+     * @param \DateTime|null $transferred_date
+     * @param bool $renew
+     * @param string $registrant
+     * @param ActiveStatus $status
+     * @param array $nameservers
+     * @param bool $service_registrar
+     * @param bool $service_dns
+     * @param bool $service_email
+     * @param bool $service_webhotel
+     */
     public function __construct(Client &$client, int $id, string $domain, \DateTime $expiry_date, ?\DateTime $registered_date, ?\DateTime $transferred_date, bool $renew, string $registrant, ActiveStatus $status, array $nameservers, bool $service_registrar, bool $service_dns, bool $service_email, bool $service_webhotel)
     {
         $this->id = $id;
@@ -36,6 +53,10 @@ class Domain
         $this->records = new Records($client, $this);
     }
 
+    /**
+     * Returns the domain data as an array
+     * @return array
+     */
     public function toArray(): array
     {
         return [
@@ -58,11 +79,21 @@ class Domain
     }
 
 
+    /**
+     * Returns the domain ID
+     * @return int
+     */
     public function getId(): int
     {
         return $this->id;
     }
 
+    /**
+     * Tests if a domain property has a certain value
+     * @param string $key
+     * @param mixed $value
+     * @return bool
+     */
     public function testValue(string $key, mixed $value): bool
     {
         if (!property_exists($this, $key)) {
