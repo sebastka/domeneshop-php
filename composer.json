@@ -19,10 +19,6 @@
         {
             "name": "Sebastian Karlsen",
             "email": "sebastian@karlsen.fr"
-        },
-        {
-            "name": "Domeneshop AS",
-            "homepage": "https://domene.shop"
         }
     ],
     "minimum-stability": "stable"
