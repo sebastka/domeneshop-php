@@ -113,7 +113,7 @@ class Records
             'DELETE',
             '/domains/' . $this->domain->getId() . '/dns/' . $record->getId()
         );
-        $record->delete(NULL);
+        $record->delete();
     }
 
     /*
