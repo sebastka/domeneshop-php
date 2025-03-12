@@ -38,6 +38,7 @@ class Client
 
     private \CurlHandle $curl;
     public Domains $domains;
+    public Invoices $invoices;
 
     /**
      * Constructor
@@ -48,6 +49,7 @@ class Client
     {
         $this->initClient($token, $secret);
         $this->domains = new Domains($this);
+        $this->invoices = new Invoices($this);
     }
 
     /**

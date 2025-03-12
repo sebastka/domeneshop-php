@@ -58,5 +58,4 @@ $domain->records->update($new_record);
 Implement:
 - DDNS: *
 - HTTPS Forwards: *
-- Invoices: *
 - Tests
