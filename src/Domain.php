@@ -17,6 +17,7 @@ class Domain
     private bool $service_email;
     private bool $service_webhotel;
     public Records $records;
+    public Forwards $forwards;
 
     /**
      * Constructor
@@ -51,6 +52,7 @@ class Domain
         $this->service_email = $service_email;
         $this->service_webhotel = $service_webhotel;
         $this->records = new Records($client, $this);
+        $this->forwards = new Forwards($client, $this);
     }
 
     /**

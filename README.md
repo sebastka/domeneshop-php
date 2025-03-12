@@ -51,12 +51,15 @@ $new_record->set('data', 'mx.domain.tld');
 $new_record->set('priority', 20);
 $domain->records->update($new_record);
 
+// List HTTP forwards
+$forwards = $domain->forwards->get();
+foreach ($forwards as $forward)
+    print_r($forward->toArray());
+
 ?>
 ```
 
 ## To do
 
-Implement:
-- DDNS: *
-- HTTPS Forwards: *
-- Tests
+- Implement tests
+- Implement class/resource abstraction
