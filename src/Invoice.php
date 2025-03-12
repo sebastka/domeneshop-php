@@ -39,6 +39,13 @@ class Invoice
         $this->url = $url;
     }
 
+    public function getPdfUrl(): string
+    {
+        $params = [];
+        parse_str(parse_url($this->url, PHP_URL_QUERY), $params);
+        return 'https://domene.shop/invoice?invoicenr=' . $params['nr'] . '&code=' . $params['code'] . '&lang=no&format=pdf';
+    }
+
     /**
      * Returns the invoice data as an array
      * @return array
