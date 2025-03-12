@@ -53,14 +53,6 @@ class Client
     }
 
     /**
-     * Destructor
-     */
-    public function __destruct()
-    {
-        curl_close($this->curl);
-    }
-
-    /**
      * Initializes the cURL client
      * @param string $token
      * @param string $secret
