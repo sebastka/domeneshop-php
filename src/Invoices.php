@@ -61,18 +61,14 @@ class Invoices
 
         $allInvoices = [];
         foreach ($response as $invoice) {
-            $due_date = (!empty($invoice['due_date'])) ? new \DateTime($invoice['due_date']) : NULL;
-            $issued_date = (!empty($invoice['issued_date'])) ? new \DateTime($invoice['issued_date']) : NULL;
-            $paid_date = (!empty($invoice['paid_date'])) ? new \DateTime($invoice['paid_date']) : NULL;
-
             $allInvoices[] = new Invoice(
                 $invoice['id'],
                 $invoice['type'],
                 $invoice['amount'],
                 $invoice['currency'],
-                $due_date,
-                $issued_date,
-                $paid_date,
+                (!empty($invoice['due_date'])) ? new \DateTime($invoice['due_date']) : NULL,
+                new \DateTime($invoice['issued_date']),
+                (!empty($invoice['paid_date'])) ? new \DateTime($invoice['paid_date']) : NULL,
                 InvoiceStatus::from($invoice['status']),
                 $invoice['url'],
             );

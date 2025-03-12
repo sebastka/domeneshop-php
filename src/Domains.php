@@ -62,16 +62,13 @@ class Domains
 
         $allDomains = [];
         foreach ($response as $domain) {
-            $registered_date = (!empty($domain['registered_date'])) ? new \DateTime($domain['registered_date']) : NULL;
-            $transferred_date = (!empty($domain['transferred_date'])) ? new \DateTime($domain['transferred_date']) : NULL;
-
             $allDomains[] = new Domain(
                 $this->client,
                 $domain['id'],
                 $domain['domain'],
                 new \DateTime($domain['expiry_date']),
-                $registered_date,
-                $transferred_date,
+                (!empty($domain['registered_date'])) ? new \DateTime($domain['registered_date']) : NULL,
+                (!empty($domain['transferred_date'])) ? new \DateTime($domain['transferred_date']) : NULL,
                 $domain['renew'],
                 $domain['registrant'],
                 ActiveStatus::from($domain['status']),
