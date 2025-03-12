@@ -34,7 +34,7 @@ $allRecords = $domain->records->get();
 foreach ($allRecords as $record)
     print_r($record->toArray());
 
-// Add a new record
+// Add a new record: id, host, ttl, type, data, otherFields
 $new_record = new \Sebastka\Domeneshop\Record(
     NULL,
     '@',
@@ -44,6 +44,7 @@ $new_record = new \Sebastka\Domeneshop\Record(
     [ 'priority' => 10 ]
 );
 $domain->records->add($new_record);
+printf('Record ID: %d' . PHP_EOL, $new_record->getId())
 
 // Update record
 $new_record->set('data', 'mx.domain.tld');
