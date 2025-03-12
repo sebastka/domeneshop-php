@@ -86,18 +86,10 @@ class Client
     {
         curl_setopt($this->curl, CURLOPT_URL, self::$DEFAULT_API_BASE . $path);
         curl_setopt($this->curl, CURLOPT_CUSTOMREQUEST, $method);
+        curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
 
-        switch ($method) {
-            case 'GET':
-                curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
-                break;
-            case 'POST':
-                curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($this->curl, CURLOPT_POSTFIELDS, json_encode($data));
-                break;
-            case 'PUT':
-                curl_setopt($this->curl, CURLOPT_POSTFIELDS, json_encode($data));
-                break;
+        if (in_array($method, ['POST', 'PUT'])) {
+            curl_setopt($this->curl, CURLOPT_POSTFIELDS, json_encode($data));
         }
 
         $response = curl_exec($this->curl);
