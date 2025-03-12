@@ -181,6 +181,15 @@ class Record
     }
 
     /**
+     * Deletes the record
+     * @return void
+     */
+    public function delete(): void
+    {
+        $this->id = NULL;
+    }
+
+    /**
      * Tests if a record property has a certain value
      * @param string $key
      * @param mixed $value

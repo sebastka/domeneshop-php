@@ -40,11 +40,11 @@ $new_record = new \Sebastka\Domeneshop\Record(
     '@',
     3600,
     'MX',
-    'mx.domain.tdl'
+    'mx.domain.tdl',
     [ 'priority' => 10 ]
 );
 $domain->records->add($new_record);
-printf('Record ID: %d' . PHP_EOL, $new_record->getId())
+printf('Record ID: %d' . PHP_EOL, $new_record->getId());
 
 // Update record
 $new_record->set('data', 'mx.domain.tld');

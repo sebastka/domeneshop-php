@@ -5,7 +5,6 @@ class Records
 {
     private Client $client;
     private Domain $domain;
-    private array $records;
 
     /*
     * Constructor
@@ -25,14 +24,14 @@ class Records
      */
     public function get(array $filter = []): array
     {
-        $this->getRecords();
+        $allRecords = $this->getAll();
 
         if (empty($filter))
-            return $this->records;
+            return $allRecords;
 
         // Filter records
         $filtered = [];
-        foreach ($this->records as $record) {
+        foreach ($allRecords as $record) {
             $match = true;
             foreach ($filter as $key => $value) {
                 if (!$record->testValue($key, $value)) {
@@ -114,27 +113,28 @@ class Records
             'DELETE',
             '/domains/' . $this->domain->getId() . '/dns/' . $record->getId()
         );
+        $record->delete(NULL);
     }
 
     /*
-     * Fetches all records and saves them in $this->records
+     * Fetches all records and returns them
      * @return void
      */
-    private function getRecords(): void
+    private function getAll(): array
     {
         $response = $this->client->request(
             'GET',
             '/domains/' . $this->domain->getId() . '/dns'
         );
 
-        $this->records = [];
+        $allRecords = [];
         foreach ($response as $record) {
             $otherFields = [];
             foreach (Client::$typeRequirements[$record['type']] as $requiredFields) {
                 $otherFields[$requiredFields] = $record[$requiredFields];
             }
             
-            $this->records[] = new Record(
+            $allRecords[] = new Record(
                 $record['id'],
                 $record['host'],
                 $record['ttl'],
@@ -143,6 +143,8 @@ class Records
                 $otherFields
             );
         }
+
+        return $allRecords;
     }
 
     /*

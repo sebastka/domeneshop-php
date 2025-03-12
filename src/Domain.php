@@ -62,9 +62,9 @@ class Domain
         return [
             'id' => $this->id,
             'domain' => $this->domain,
-            'expiry_date' => $this->expiry_date->format('Y-m-d H:i:s'),
-            'registered_date' => $this->registered_date ? $this->registered_date->format('Y-m-d H:i:s') : NULL,
-            'transferred_date' => $this->transferred_date ? $this->transferred_date->format('Y-m-d H:i:s') : NULL,
+            'expiry_date' => $this->expiry_date->format('Y-m-d'),
+            'registered_date' => $this->registered_date ? $this->registered_date->format('Y-m-d') : NULL,
+            'transferred_date' => $this->transferred_date ? $this->transferred_date->format('Y-m-d') : NULL,
             'renew' => $this->renew,
             'registrant' => $this->registrant,
             'status' => $this->status->value,

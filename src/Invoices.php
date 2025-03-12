@@ -10,7 +10,6 @@ enum InvoiceStatus: string {
 class Invoices
 {
     private Client $client;
-    private array $invoices;
 
     /*
      * Constructor
@@ -28,16 +27,14 @@ class Invoices
      */
     public function get(array $filter = []): array
     {
-        // Initialize $this->invoices
-        $this->getInvoices();
+        $allInvoices = $this->getAll();
 
-        // Return all invoices if no filter
         if (empty($filter))
-            return $this->invoices;
+            return $allInvoices;
 
         // Filter invoices
         $filtered = [];
-        foreach ($this->invoices as $invoice) {
+        foreach ($allInvoices as $invoice) {
             $match = true;
             foreach ($filter as $key => $value) {
                 if (!$invoice->testValue($key, $value)) {
@@ -55,20 +52,20 @@ class Invoices
     }
 
     /*
-     * Fetches all invoices and saves them in $this->invoices
+     * Fetches all invoices and returns them
      * @return void
      */
-    private function getInvoices(): void
+    private function getAll(): array
     {
         $response = $this->client->request('GET', '/invoices');
 
-        $this->invoices = [];
+        $allInvoices = [];
         foreach ($response as $invoice) {
             $due_date = (!empty($invoice['due_date'])) ? new \DateTime($invoice['due_date']) : NULL;
             $issued_date = (!empty($invoice['issued_date'])) ? new \DateTime($invoice['issued_date']) : NULL;
             $paid_date = (!empty($invoice['paid_date'])) ? new \DateTime($invoice['paid_date']) : NULL;
 
-            $this->invoices[] = new Invoice(
+            $allInvoices[] = new Invoice(
                 $invoice['id'],
                 $invoice['type'],
                 $invoice['amount'],
@@ -80,6 +77,8 @@ class Invoices
                 $invoice['url'],
             );
         }
+
+        return $allInvoices;
     }
 
     /*

@@ -11,7 +11,6 @@ enum ActiveStatus: string {
 class Domains
 {
     private Client $client;
-    private array $domains;
 
     /*
      * Constructor
@@ -29,16 +28,14 @@ class Domains
      */
     public function get(array $filter = []): array
     {
-        // Initialize $this->domains
-        $this->getDomains();
+        $allDomains = $this->getAll();
 
-        // Return all domains if no filter
         if (empty($filter))
-            return $this->domains;
+            return $allDomains;
 
         // Filter domains
         $filtered = [];
-        foreach ($this->domains as $domain) {
+        foreach ($allDomains as $domain) {
             $match = true;
             foreach ($filter as $key => $value) {
                 if (!$domain->testValue($key, $value)) {
@@ -56,19 +53,19 @@ class Domains
     }
 
     /*
-     * Fetches all domains and saves them in $this->domains
+     * Fetches all domains and returns them
      * @return void
      */
-    private function getDomains(): void
+    private function getAll(): array
     {
         $response = $this->client->request('GET', '/domains');
 
-        $this->domains = [];
+        $allDomains = [];
         foreach ($response as $domain) {
             $registered_date = (!empty($domain['registered_date'])) ? new \DateTime($domain['registered_date']) : NULL;
             $transferred_date = (!empty($domain['transferred_date'])) ? new \DateTime($domain['transferred_date']) : NULL;
 
-            $this->domains[] = new Domain(
+            $allDomains[] = new Domain(
                 $this->client,
                 $domain['id'],
                 $domain['domain'],
@@ -85,6 +82,8 @@ class Domains
                 $domain['services']['webhotel']
             );
         }
+
+        return $allDomains;
     }
 
     /*
