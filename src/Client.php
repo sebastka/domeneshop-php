@@ -71,8 +71,7 @@ class Client
         // Default options
         curl_setopt($this->curl, CURLOPT_HTTPHEADER, [
             'Content-Type: application/json',
-            'Accept: application/json',
-            'User-Agent: ' . self::$DEFAULT_USER_AGENT
+            'Accept: application/json'
         ]);
     }
 
