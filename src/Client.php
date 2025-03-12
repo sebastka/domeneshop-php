@@ -4,7 +4,7 @@ namespace Sebastka\Domeneshop;
 class Client
 {
     public static string $DEFAULT_API_BASE = 'https://api.domeneshop.no/v0';
-    public static string $DEFAULT_USER_AGENT = 'sebastka/domeneshop';
+    public static string $DEFAULT_USER_AGENT = 'sebastka/domeneshop-php';
     public static array $recordTypes = [
         'A',
         'AAAA',
