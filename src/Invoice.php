@@ -50,9 +50,9 @@ class Invoice
             'type' => $this->type,
             'amount' => $this->amount,
             'currency' => $this->currency,
-            'due_date' => ($this->due_date) ? $this->due_date->format('Y-m-d H:i:s') : NULL,
-            'issued_date' => ($this->issued_date) ?  $this->issued_date->format('Y-m-d H:i:s') : NULL,
-            'paid_date' => ($this->paid_date) ? $this->paid_date->format('Y-m-d H:i:s') : NULL,
+            'due_date' => ($this->due_date) ? $this->due_date->format('Y-m-d') : NULL,
+            'issued_date' => ($this->issued_date) ?  $this->issued_date->format('Y-m-d') : NULL,
+            'paid_date' => ($this->paid_date) ? $this->paid_date->format('Y-m-d') : NULL,
             'status' => $this->status->value,
             'url' => $this->url
         ];
